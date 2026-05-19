@@ -1,10 +1,10 @@
-# LAB 12 - Localisation temps réel multi-appareils via API REST et OpenStreetMap
+# LAB 12 - Localisation temps réel
 **Cours :** Programmation Mobile : Android avec Java  
 **Étudiant :** Hajar Chaira
 
 ---
 
-## 1. Objectif pédagogique
+## 1. Objectif 
 L'objectif de ce laboratoire est de concevoir et de réaliser une architecture client-serveur complète pour le suivi géolocalisé en temps réel de terminaux Android. L'application mobile capte en continu les coordonnées GPS du terminal et les transmet de manière asynchrone à un serveur Web local (Apache/PHP) qui les enregistre dans une base de données MySQL. L'historique des positions est ensuite récupéré pour être projeté sous forme de repères interactifs (pins) sur une carte OpenStreetMap (osmdroid).
 
 Ce projet met en pratique la structuration en couches du backend (modèle DAO), la sécurisation des requêtes SQL via PDO, le requêtage réseau asynchrone avec la bibliothèque Volley et la manipulation d'interfaces cartographiques open-source.
@@ -17,7 +17,7 @@ Ce projet met en pratique la structuration en couches du backend (modèle DAO), 
 
 | Suivi GPS et Synchronisation | Enregistrement en Base de données | Cartographie interactive et Marqueurs |
 | :---: | :---: | :---: |
-| ![Suivi et Synchronisation](../img-lab12-dev/1.png) | ![Base de données MySQL](../img-lab12-dev/2.png) | ![Carte OpenStreetMap](../img-lab12-dev/3.png) |
+| ![Suivi et Synchronisation](/img-lab12-dev/1.png) | ![Base de données MySQL](/img-lab12-dev/2.png) | ![Carte OpenStreetMap](/img-lab12-dev/3.png) |
 | Interface principale affichant les coordonnées en temps réel avec notification de synchronisation réussie | Données de géolocalisation enregistrées dynamiquement avec date précise et identifiant unique de l'appareil | Rendu de la carte centré sur le dernier point avec les pins rouges représentant l'historique complet |
 
 ---
@@ -25,23 +25,15 @@ Ce projet met en pratique la structuration en couches du backend (modèle DAO), 
 ## 3. Démonstration Vidéo
 La vidéo ci-dessous montre la chaîne complète de fonctionnement : la simulation de déplacement GPS sur l'émulateur, la réception instantanée des coordonnées, leur écriture automatique en base de données et l'actualisation dynamique des marqueurs sur la carte OpenStreetMap lors de l'ouverture de l'écran cartographique.
 
-<video src="../img-lab12-dev/video.mp4" controls="controls" style="max-width: 100%;">
-</video>
+[<video src="../img-lab12-dev/video.mp4" controls="controls" style="max-width: 100%;">
+</video>](https://github.com/user-attachments/assets/46a7c57d-63df-41ad-8410-6ff8dda60325)
 
 ---
 
 ## 4. Architecture et Étapes de réalisation
 
 ### Étape 1 : Conception de la Base de données (MySQL)
-Une base de données relationnelle nommée `localisation` a été mise en place. Elle contient la table structurée appelée `position` dont voici l'aperçu complet de la structure :
-
-| Colonne | Type | Attributs | Description |
-| :--- | :--- | :--- | :--- |
-| `id` | INT(11) | PRIMARY KEY, AUTO_INCREMENT | Identifiant unique de chaque enregistrement |
-| `latitude` | DOUBLE | NOT NULL | Coordonnée de latitude géographique |
-| `longitude` | DOUBLE | NOT NULL | Coordonnée de longitude géographique |
-| `date` | DATETIME | NOT NULL | Date et heure exactes du relevé GPS |
-| `imei` | VARCHAR(50) | NOT NULL | Identifiant unique de l'appareil (Android ID) |
+Une base de données relationnelle nommée `localisation` a été mise en place. Elle contient la table structurée appelée `position` 
 
 ### Étape 2 : Développement du Backend PHP (Architecture DAO)
 Le serveur web Apache héberge une API structurée en couches pour interagir proprement avec les données :
@@ -63,12 +55,6 @@ L'affichage cartographique repose sur un composant `MapView` fourni par osmdroid
 * **Extraction et Projection JSON :** Au chargement de l'activité, une requête HTTP POST de Volley récupère la liste des points enregistrés sur le serveur. L'application décode le tableau JSON reçu, instancie des objets marqueurs (`Marker`) positionnés sur les coordonnées correspondantes, et leur associe une infobulle interactive détaillant le nom du terminal et l'heure du relevé avant de centrer la caméra sur le point le plus récent.
 
 ---
+# Preuve Base de donnee position:
+![](/img-lab12-dev/5.png)
 
-## 5. Bilan technique et Compétences acquises
-* **Intégration d'Architectures Client-Serveur :** Maîtrise de la communication bidirectionnelle entre une application mobile native Java et une API REST PHP à travers des échanges JSON asynchrones.
-* **Réseau et Routage d'Émulateur :** Résolution des problématiques de réseau virtuel (proxies, pare-feu Windows, utilisation du pont de bouclage d'émulateur `10.0.2.2` pour le localhost).
-* **Sécurisation de Base de données :** Implémentation de requêtes SQL préparées avec PDO pour la protection des données et contournement des conflits de mots-clés réservés SQL (backticks sur le mot `position`).
-* **Cartographie Open-Source Nomade :** Utilisation et configuration d'osmdroid (OpenStreetMap) pour le déploiement d'interfaces de géolocalisation indépendantes et gratuites.
-
----
-**Rapport de TP - 2026**
