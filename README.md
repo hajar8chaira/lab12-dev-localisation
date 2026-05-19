@@ -55,6 +55,6 @@ L'affichage cartographique repose sur un composant `MapView` fourni par osmdroid
 * **Extraction et Projection JSON :** Au chargement de l'activité, une requête HTTP POST de Volley récupère la liste des points enregistrés sur le serveur. L'application décode le tableau JSON reçu, instancie des objets marqueurs (`Marker`) positionnés sur les coordonnées correspondantes, et leur associe une infobulle interactive détaillant le nom du terminal et l'heure du relevé avant de centrer la caméra sur le point le plus récent.
 
 ---
-# Preuve Base de donnee position:
+## Resultat final dans la table  position:
 ![](/img-lab12-dev/5.png)
 
