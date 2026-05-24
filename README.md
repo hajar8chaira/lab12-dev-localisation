@@ -1,4 +1,4 @@
-# LAB 12 - Localisation temps réel
+# LAB 12-Lab 13 - Localisation temps réel
 **Cours :** Programmation Mobile : Android avec Java  
 **Étudiant :** Hajar Chaira
 
